@@ -1,2 +1,2 @@
 # Keylogger
-Python based Keylogger for University Assignement 
+Python based Keylogger for University Assignment 
