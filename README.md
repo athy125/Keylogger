@@ -9,7 +9,10 @@
  - [x] Send the collected information through email in these files:
 
 log.txt --> Key log
+
 UserInfo.txt --> Users IP, Device details
+
 screenshot__datetime__.png --> One screenshot taken right before sending email. 
+
 
 
