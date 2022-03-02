@@ -222,7 +222,6 @@ def main():
 
     for file in files:
         with open(file_path + file, 'rb') as plain_text:            # Opens the file in binary format for reading
-            data = plain_text.read()
         encrypted = Fernet(key).encrypt(data)
         with open(file_path + 'e_' + file, 'ab') as hidden_data:    # Appending to the end of the file if it exists
             hidden_data.write(encrypted)
